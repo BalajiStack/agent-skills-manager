@@ -1,12 +1,23 @@
-type SkillPageProps = {
-    params: {
-        id: String;
-    };
-}
+import { SKILLS } from "../SKILLS";
 
-export default async function SkillsPage({
-  params,
-}: SkillPageProps) {
-    const {id} = await params;
-  return <div>This is the skills details page for {id}</div>;
+type SkillPageProps = {
+  params: {
+    id: string;
+  };
+};
+
+export default async function SkillsPage({ params }: SkillPageProps) {
+  const { id } = await params;
+  const skill = SKILLS.find((skill) => skill.id === id);
+  return skill ? (
+    <article>
+      <h1>{skill?.name}</h1>
+      <p>{skill?.description}</p>
+      <p>{skill?.category}</p>
+      <p>{skill?.createdAt}</p>
+      <p>{skill?.updatedAt}</p>
+    </article>
+  ) : (
+    <div>Not Found</div>
+  );
 }
